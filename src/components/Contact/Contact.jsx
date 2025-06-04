@@ -65,17 +65,17 @@ export default function Contact() {
             </div>
 
             <div>
-              <label htmlFor="tel" className="sr-only">Phone Number</label>
+          
               <input
                 id="tel"
                 name="tel"
-                type="tel"
-                placeholder="Phone Number"
+                type="text"
+                placeholder="message"
                 className="w-full py-3 px-4 rounded-lg border border-gray-300 focus:outline-none focus:border-orange-500"
               />
             </div>
 
-            <div>
+            {/* <div>
               <label htmlFor="file" className="sr-only">Upload Image</label>
               <input
                 id="file"
@@ -83,7 +83,7 @@ export default function Contact() {
                 type="file"
                 className="w-full py-2 px-4 rounded-lg border border-gray-300 text-gray-700 focus:outline-none focus:border-orange-500"
               />
-            </div>
+            </div> */}
 
             <button
               type="submit"
