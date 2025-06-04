@@ -15,8 +15,12 @@ function App() {
   
   return (
     <>
-      <Navbar userType={userType} setUserType={setUserType} cart={cart} />
+      <div className="overflow-x-hidden max-w-full">
+
+        <Navbar userType={userType} setUserType={setUserType} cart={cart} />
       <Outlet context={{ artworks, addToCart, userType, cart, setCart }} />
+      </div>
+      
 
     </>
   );
