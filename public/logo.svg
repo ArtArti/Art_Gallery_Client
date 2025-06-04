@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1000"
+  height="1000"
+  viewBox="0 0 260 80"
+  preserveAspectRatio="xMidYMid meet"
+>
+  <!-- Palette shape -->
+  <path
+    d="M60 40c0-20 20-30 40-30s40 10 40 30-20 30-30 30c-5 0-10-5-10-10s5-10 0-10-10 5-15 5c-10 0-25-5-25-15z"
+    fill="#f59e0b"
+  />
+  <!-- Thumb hole -->
+  <circle cx="110" cy="40" r="5" fill="white" />
+  <!-- Logo Text -->
+  <text
+    x="130"
+    y="50"
+    font-family="Arial, sans-serif"
+    font-size="50"
+    font-weight="bold"
+    fill="black"
+  >
+    Art
+  </text>
+  <text
+    x="158"
+    y="50"
+    font-family="Arial, sans-serif"
+    font-size="50"
+    font-weight="bold"
+    fill="#000000"
+  >
+    _Gallery
+  </text>
+</svg>
