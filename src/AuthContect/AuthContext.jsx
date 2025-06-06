@@ -11,7 +11,7 @@ export function AuthProvider({ children }) {
     const token = localStorage.getItem("token");
     if (!token) return;
 
-    fetch("https://vercel.com/arti-s-projects/server/api/auth/check", {
+    fetch("https://art-gallery-server-zeta.vercel.app/api/auth/check", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())

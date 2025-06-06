@@ -30,7 +30,7 @@ const Login = () => {
     }
 
     try {
-      const response = await fetch("https://vercel.com/arti-s-projects/server/api/auth/signin", {
+      const response = await fetch("https://blog-server-nu-weld.vercel.app/api/auth/signin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(loginData),

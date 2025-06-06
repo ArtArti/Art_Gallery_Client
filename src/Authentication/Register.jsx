@@ -34,7 +34,7 @@ function Register() {
 
     try {
       // Make API call to register endpoint
-      const response = await fetch('https://vercel.com/arti-s-projects/server/api/auth/signup', {
+      const response = await fetch('https://blog-server-nu-weld.vercel.app/api/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
