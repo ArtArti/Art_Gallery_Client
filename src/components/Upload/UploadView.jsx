@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router';
+import { useNavigate } from 'react-router';
 
 const UploadView = () => {
   const [formData, setFormData] = useState({
@@ -19,7 +19,8 @@ const UploadView = () => {
   const [submitMessage, setSubmitMessage] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
-
+   const navigate = useNavigate();
+   
   // ✅ Check auth status from backend on mount
   useEffect(() => {
     const checkAuthStatus = async () => {
@@ -31,7 +32,7 @@ const UploadView = () => {
           return;
         }
 
-        const response = await fetch('https://blog-server-nu-weld.vercel.app/api/auth/check', {
+        const response = await fetch('https://art-gallery-server-zeta.vercel.app/api/auth/check', {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
@@ -155,7 +156,9 @@ const UploadView = () => {
     }
   };
 
- 
+  const handleLogin = () => {
+    navigate('/auth'); // This navigates without full page reload
+  };
   if (loading) {
     return (
       <div className="w-8/12 mx-auto mt-5 bg-white rounded-xl p-6 shadow-md">
@@ -174,12 +177,12 @@ const UploadView = () => {
       {!isLoggedIn && (
         <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-center">
           <p className="text-yellow-800 mb-3">🔒 You must be logged in to submit artwork</p>
-          <Link to="/auth"
-            
+          <button
+            onClick={handleLogin}
             className="bg-amber-500 text-white px-6 py-2 rounded-lg hover:bg-amber-600 transition-colors"
           >
             Login to Continue
-          </Link>
+          </button>
         </div>
       )}
 
