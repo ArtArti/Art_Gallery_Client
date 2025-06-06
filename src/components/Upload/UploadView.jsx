@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import  { useState} from 'react';
 import { useNavigate } from 'react-router';
 import { useAuth } from '../../AuthContect/AuthContext';
 
@@ -16,14 +16,12 @@ const UploadView = () => {
     medium: 'Graphite on paper',
   });
 
-  const [isLoggedIn] = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
-  
+ const {  isLoggedIn} = useAuth();
    const navigate = useNavigate();
 
-  // ✅ Check auth status from backend on mount
-  
+
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     setFormData((prev) => ({
@@ -126,12 +124,12 @@ const UploadView = () => {
   const handleLogin = () => {
     navigate('/auth'); // This navigates without full page reload
   };
-  
+
   return (
     <div className="w-8/12 mx-auto mt-5 bg-white rounded-xl p-6 shadow-md space-y-6">
       <h2 className="text-2xl font-bold text-center text-amber-600">Submit Artwork & Contact Info</h2>
 
-      {!isLoggedIn (
+      {!isLoggedIn && (
         <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-center">
           <p className="text-yellow-800 mb-3">🔒 You must be logged in to submit artwork</p>
           <button
