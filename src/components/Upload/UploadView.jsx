@@ -20,7 +20,7 @@ const UploadView = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
    const navigate = useNavigate();
-   
+
   // ✅ Check auth status from backend on mount
   useEffect(() => {
     const checkAuthStatus = async () => {
@@ -32,7 +32,7 @@ const UploadView = () => {
           return;
         }
 
-        const response = await fetch('https://art-gallery-server-zeta.vercel.app/api/auth/check', {
+        const response = await fetch('https://art-gallery-server-zeta.vercel.app/api/auth/user', {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
