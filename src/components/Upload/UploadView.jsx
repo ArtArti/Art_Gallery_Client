@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
+import { useAuth } from '../../AuthContect/AuthContext';
 
 const UploadView = () => {
   const [formData, setFormData] = useState({
@@ -15,48 +16,14 @@ const UploadView = () => {
     medium: 'Graphite on paper',
   });
 
+  const [isLoggedIn] = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [loading, setLoading] = useState(true);
+  
    const navigate = useNavigate();
 
   // ✅ Check auth status from backend on mount
-  useEffect(() => {
-    const checkAuthStatus = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        if (!token) {
-          setIsLoggedIn(false);
-          setLoading(false);
-          return;
-        }
-
-        const response = await fetch('https://art-gallery-server-zeta.vercel.app/api/auth/user', {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        });
-
-        if (response.ok) {
-          setIsLoggedIn(true);
-        } else {
-          localStorage.removeItem('token');
-          // setIsLoggedIn(false);
-        }
-      } catch (error) {
-        console.error('Auth check failed:', error);
-        localStorage.removeItem('token');
-        // setIsLoggedIn(false);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    checkAuthStatus();
-  }, []);
-
+  
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     setFormData((prev) => ({
@@ -159,22 +126,12 @@ const UploadView = () => {
   const handleLogin = () => {
     navigate('/auth'); // This navigates without full page reload
   };
-  if (loading) {
-    return (
-      <div className="w-8/12 mx-auto mt-5 bg-white rounded-xl p-6 shadow-md">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-600 mx-auto"></div>
-          <p className="mt-2 text-gray-600">Loading...</p>
-        </div>
-      </div>
-    );
-  }
-
+  
   return (
     <div className="w-8/12 mx-auto mt-5 bg-white rounded-xl p-6 shadow-md space-y-6">
       <h2 className="text-2xl font-bold text-center text-amber-600">Submit Artwork & Contact Info</h2>
 
-      {!isLoggedIn && (
+      {!isLoggedIn (
         <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-center">
           <p className="text-yellow-800 mb-3">🔒 You must be logged in to submit artwork</p>
           <button
