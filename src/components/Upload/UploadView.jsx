@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useAuth } from '../../AuthContect/AuthContext';
+import { Link } from 'react-router';
 
 const UploadView = () => {
   const [formData, setFormData] = useState({
@@ -14,46 +16,11 @@ const UploadView = () => {
     medium: 'Graphite on paper',
   });
 
+  const { isLoggedIn } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  // ✅ Check auth status from backend on mount
-  useEffect(() => {
-    const checkAuthStatus = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        if (!token) {
-          setIsLoggedIn(false);
-          setLoading(false);
-          return;
-        }
-
-        const response = await fetch('https://blog-server-nu-weld.vercel.app/api/auth/check', {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        });
-
-        if (response.ok) {
-          setIsLoggedIn(true);
-        } else {
-          localStorage.removeItem('token');
-          // setIsLoggedIn(false);
-        }
-      } catch (error) {
-        console.error('Auth check failed:', error);
-        localStorage.removeItem('token');
-        // setIsLoggedIn(false);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    checkAuthStatus();
-  }, []);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -154,9 +121,7 @@ const UploadView = () => {
     }
   };
 
-  const handleLogin = () => {
-    window.location.href = '/auth';
-  };
+ 
 
   if (loading) {
     return (
@@ -176,12 +141,12 @@ const UploadView = () => {
       {!isLoggedIn && (
         <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-center">
           <p className="text-yellow-800 mb-3">🔒 You must be logged in to submit artwork</p>
-          <button
-            onClick={handleLogin}
+          <Link
+           to="/auth"
             className="bg-amber-500 text-white px-6 py-2 rounded-lg hover:bg-amber-600 transition-colors"
           >
             Login to Continue
-          </button>
+          </Link>
         </div>
       )}
 
