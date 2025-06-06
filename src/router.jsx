@@ -18,7 +18,8 @@ const router = createBrowserRouter([
       },
       {
         path: "/upload",
-        element: <UploadView />,
+        element: <UploadView />
+        ,
       },
       {
         path: "/cart",

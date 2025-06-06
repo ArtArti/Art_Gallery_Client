@@ -1,10 +1,17 @@
 import { MenuIcon, ShoppingCart, User, X } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-
-export default function Navbar({ userType, setUserType, cart }) {
+import { useAuth } from "../../AuthContect/AuthContext";
+export default function Navbar({ cart}) {
+   const { user, isLoggedIn, setUser, setIsLoggedIn } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    setUser(null);
+  };
 
   const navItems = [
     { to: "/", label: "Gallery" },
@@ -21,7 +28,7 @@ export default function Navbar({ userType, setUserType, cart }) {
           <div className="flex items-center overflow-x-hidden">
             <Link to="/">
               <svg
-                width="140" // reduced width for mobile
+                width="140"
                 height="40"
                 viewBox="0 0 260 80"
                 xmlns="http://www.w3.org/2000/svg"
@@ -85,13 +92,31 @@ export default function Navbar({ userType, setUserType, cart }) {
               )}
             </Link>
 
-            <Link
-              to="/auth"
-              className="flex items-center space-x-1 border border-amber-600 rounded-md px-2 py-1"
-            >
-              <User size={18} className="text-amber-600" />
-              <span className="text-sm text-amber-600">Profile</span>
-            </Link>
+            {isLoggedIn ? <>
+              <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-2">
+                  <User className="h-5 w-5 text-gray-500" />
+                  <span className="text-sm text-gray-700">{user?.name}</span>
+                </div>
+                <button
+                  onClick={handleLogout}
+                  className="text-sm text-red-600 hover:text-red-800 font-medium"
+                >
+                  Logout
+                </button>
+              </div>
+              </>
+            : (
+              <>
+                <Link
+                  to="/auth"
+                  className="flex items-center space-x-1 border border-amber-600 rounded-md px-2 py-1"
+                >
+                  <User size={18} className="text-amber-600" />
+                  <span className="text-sm text-amber-600">Profile</span>
+                </Link>
+              </>
+            )}
 
             {/* Hamburger menu for mobile */}
             <div className="lg:hidden">

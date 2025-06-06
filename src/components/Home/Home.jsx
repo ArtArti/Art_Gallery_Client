@@ -3,7 +3,7 @@ import SearchAndFilters from "./SearchAndFilter";
 import GalleryView from "../Gallery/GalleryView";
 import ArtworkModal from "../Gallery/ArtworkModal";
 
-export default function ArtGallery({ artworks, addToCart, userType, cart }) {
+export default function ArtGallery({ artworks, addToCart,cart }) {
   const [filteredArtworks, setFilteredArtworks] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");

@@ -2,10 +2,13 @@ import { useState } from "react";
 import Login from "./Login";
 import Register from "./Register";
 import { motion, AnimatePresence } from "framer-motion";
+import { useOutletContext } from "react-router-dom";
+
+
 
 export default function AuthForm() {
   const [isLogin, setIsLogin] = useState(true);
-
+const { setUser, setIsLoggedIn } = useOutletContext();
   return (
     <div className="min-h-screen bg-amber-100 flex flex-col items-center justify-center px-4 space-y-6">
       {/* Swap Button */}
@@ -32,7 +35,7 @@ export default function AuthForm() {
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
           >
-            {isLogin ? <Login /> : <Register />}
+            {isLogin ? <Login setUser={setUser} setIsLoggedIn={setIsLoggedIn} /> : <Register />}
           </motion.div>
         </AnimatePresence>
       </div>

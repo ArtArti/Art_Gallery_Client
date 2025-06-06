@@ -1,5 +1,6 @@
 import { Heart, ShoppingCart, Star, X } from 'lucide-react';
-
+import { useAuth } from '../../AuthContect/AuthContext';
+import { Link } from 'react-router';
 export default function ArtworkModal({
   selectedArt,
   setSelectedArt,
@@ -9,6 +10,7 @@ export default function ArtworkModal({
   addToCart
 
 }) {
+  const { isLoggedIn,user } = useAuth();
   if (!selectedArt) return null;
 
   return (
@@ -67,12 +69,12 @@ export default function ArtworkModal({
                 </button>
               </div>
 
-              <button
+
+              {isLoggedIn && user ? (<Link
                 onClick={() => {
                   addToCart(selectedArt);
                   setSelectedArt(null);
                 }}
-                disabled={cart.find(item => item.id === selectedArt.id)}
                 className={`w-full py-3 rounded-lg flex items-center justify-center gap-2 ${
                   cart.find(item => item.id === selectedArt.id)
                     ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
@@ -81,7 +83,16 @@ export default function ArtworkModal({
               >
                 <ShoppingCart size={20} />
                 {cart.find(item => item.id === selectedArt.id) ? 'Already in Cart' : 'Add to Cart'}
-              </button>
+              </Link>):(
+                <Link
+                // disabled={cart.find(item => item.id === selectedArt.id)}
+                to="/auth"
+                className=" hover:bg-amber-500 w-full py-3 rounded-lg flex items-center justify-center gap-2 bg-gray-300 text-gray-500"
+              >
+                Login First
+              </Link>
+              )}
+              
             </div>
           </div>
         </div>

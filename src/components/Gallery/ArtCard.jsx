@@ -1,6 +1,9 @@
 import { Heart, Star, ShoppingCart } from 'lucide-react';
+import { Link } from 'react-router';
+import { useAuth } from '../../AuthContect/AuthContext';
 
-export default function ArtCard({ artwork, favorites, cart, setSelectedArt, toggleFavorite, addToCart }) {
+export default function ArtCard({artwork, favorites, cart, setSelectedArt, toggleFavorite, addToCart }) {
+   const { user, isLoggedIn } = useAuth();
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
       <div className="relative">
@@ -31,7 +34,7 @@ export default function ArtCard({ artwork, favorites, cart, setSelectedArt, togg
         
         <div className="flex items-center justify-between">
           <span className="text-xl font-bold text-gray-900">₹{artwork.price}</span>
-          <button
+          {isLoggedIn && user ? <button
             onClick={() => addToCart(artwork)}
             disabled={cart.find(item => item.id === artwork.id)}
             className={`px-4 py-2 rounded-md flex items-center gap-2 transition-colors ${
@@ -42,7 +45,18 @@ export default function ArtCard({ artwork, favorites, cart, setSelectedArt, togg
           >
             <ShoppingCart size={16} />
             {cart.find(item => item.id === artwork.id) ? 'In Cart' : 'Add to Cart'}
-          </button>
+          </button>: <>
+             
+         <Link
+                  to="/auth"
+                  className="flex items-center space-x-1 border border-amber-600 rounded-md px-2 py-1"
+                >
+                  
+                  <span className="text-sm text-amber-600">login</span>
+                </Link>
+
+          </> }
+          
         </div>
       </div>
     </div>
