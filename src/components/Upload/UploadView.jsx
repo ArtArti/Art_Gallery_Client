@@ -30,7 +30,7 @@ const UploadView = () => {
           return;
         }
 
-        const response = await fetch('https://art-gallery-server-zeta.vercel.app/api/auth/check', {
+        const response = await fetch('https://blog-server-nu-weld.vercel.app/api/auth/check', {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
