@@ -21,6 +21,10 @@ const UploadView = () => {
   const [submitMessage, setSubmitMessage] = useState('');
   const [loading, setLoading] = useState(true);
 
+  if (isLoggedIn) {
+    setLoading(false);
+  }
+
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -121,7 +125,7 @@ const UploadView = () => {
     }
   };
 
- 
+  
 
   if (loading) {
     return (
@@ -142,7 +146,7 @@ const UploadView = () => {
         <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-center">
           <p className="text-yellow-800 mb-3">🔒 You must be logged in to submit artwork</p>
           <Link
-           to="/auth"
+            to="/auth"
             className="bg-amber-500 text-white px-6 py-2 rounded-lg hover:bg-amber-600 transition-colors"
           >
             Login to Continue
