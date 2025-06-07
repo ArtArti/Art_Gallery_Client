@@ -2,8 +2,8 @@ import { MenuIcon, ShoppingCart, User, X } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../AuthContect/AuthContext";
-export default function Navbar({ cart}) {
-   const { user, isLoggedIn, setUser, setIsLoggedIn } = useAuth();
+export default function Navbar({ cart }) {
+  const { user, isLoggedIn, setUser, setIsLoggedIn } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
 
@@ -92,21 +92,22 @@ export default function Navbar({ cart}) {
               )}
             </Link>
 
-            {isLoggedIn ? <>
-              <div className="flex items-center space-x-4">
-                <div className="flex items-center space-x-2">
-                  <User className="h-5 w-5 text-gray-500" />
-                  <span className="text-sm text-gray-700">{user?.name}</span>
+            {isLoggedIn ? (
+              <>
+                <div className="flex items-center space-x-4">
+                  <div className="flex items-center space-x-2">
+                    <User className="h-5 w-5 text-gray-500" />
+                    <span className="text-sm text-gray-700">{user?.name}</span>
+                  </div>
+                  <button
+                    onClick={handleLogout}
+                    className="text-sm text-red-600 hover:text-red-800 font-medium"
+                  >
+                    Logout
+                  </button>
                 </div>
-                <button
-                  onClick={handleLogout}
-                  className="text-sm text-red-600 hover:text-red-800 font-medium"
-                >
-                  Logout
-                </button>
-              </div>
               </>
-            : (
+            ) : (
               <>
                 <Link
                   to="/auth"

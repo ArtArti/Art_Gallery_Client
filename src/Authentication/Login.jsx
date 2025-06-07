@@ -1,6 +1,6 @@
 import { LogIn } from "lucide-react";
 import { useState } from "react";
-import { useNavigate} from "react-router";
+import { Link, useNavigate} from "react-router";
 import { useAuth } from "../AuthContect/AuthContext";
 
 const Login = () => {
@@ -61,7 +61,7 @@ const Login = () => {
   };
 
   return (
-    <>
+    <> 
       <div className="space-y-6">
         {error && (
           <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg text-sm">
@@ -160,7 +160,7 @@ const Login = () => {
           )}
         </button>
         <div className="text-sm font-medium text-gray-500 text-center">
-          Not registered?{" "}
+          Not registered?
           <button className="text-blue-700 hover:underline cursor-pointer">
             Create account
           </button>
@@ -168,11 +168,12 @@ const Login = () => {
 
         {/* Optional: Forgot Password Link */}
         <div className="text-center">
-          <button className="text-sm text-blue-600 hover:underline cursor-pointer">
+          <Link to="#forgotpassword" className="text-sm text-blue-600 hover:underline cursor-pointer">
             Forgot your password?
-          </button>
+          </Link>
         </div>
       </div>
+    
     </>
   );
 };

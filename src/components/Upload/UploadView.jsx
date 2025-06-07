@@ -1,4 +1,4 @@
-import  { useState} from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useAuth } from '../../AuthContect/AuthContext';
 
@@ -7,7 +7,6 @@ const UploadView = () => {
     name: '',
     email: '',
     address: '',
-    file: null,
     title: '',
     description: '',
     price: '',
@@ -18,20 +17,18 @@ const UploadView = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
- const {  isLoggedIn} = useAuth();
-   const navigate = useNavigate();
-
+  const { isLoggedIn } = useAuth();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
-    const { name, value, files } = e.target;
+    const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: files ? files[0] : value,
+      [name]: value,
     }));
   };
 
   const handleSubmit = async () => {
-    // 🔐 Check again before submitting
     const token = localStorage.getItem('token');
     if (!token) {
       setSubmitMessage('❌ You must be logged in to submit artwork.');
@@ -47,24 +44,9 @@ const UploadView = () => {
     setSubmitMessage('');
 
     try {
-      // File upload
-      let imageUrl = '';
-      if (formData.file) {
-        const fileFormData = new FormData();
-        fileFormData.append('file', formData.file);
+      // Since no file upload, just set placeholder image URL
+      const imageUrl = 'https://via.placeholder.com/300x200?text=Artwork+Image';
 
-        const fileResponse = await fetch('/', {
-          method: 'POST',
-          body: fileFormData,
-        });
-
-        if (fileResponse.ok) {
-          const fileResult = await fileResponse.json();
-          imageUrl = fileResult.url;
-        }
-      }
-
-      // Email send
       const emailResponse = await fetch('https://email-api-gilt-one.vercel.app/send-template-email', {
         method: 'POST',
         headers: {
@@ -84,7 +66,7 @@ const UploadView = () => {
             medium: formData.medium,
             price: formData.price,
             category: formData.category,
-            imageUrl: imageUrl || 'https://via.placeholder.com/300x200?text=Artwork+Image',
+            imageUrl,
           },
         }),
       });
@@ -99,7 +81,6 @@ const UploadView = () => {
           name: '',
           email: '',
           address: '',
-          file: null,
           title: '',
           description: '',
           price: '',
@@ -107,9 +88,6 @@ const UploadView = () => {
           dimensions: '',
           medium: 'Graphite on paper',
         });
-
-        const fileInput = document.querySelector('input[type="file"]');
-        if (fileInput) fileInput.value = '';
       } else {
         setSubmitMessage(`❌ Error: ${emailResult.error || 'Failed to send email'}`);
       }
@@ -122,7 +100,7 @@ const UploadView = () => {
   };
 
   const handleLogin = () => {
-    navigate('/auth'); // This navigates without full page reload
+    navigate('/auth'); // Navigate without reload
   };
 
   return (
@@ -208,14 +186,12 @@ const UploadView = () => {
             !isLoggedIn ? 'bg-gray-100 cursor-not-allowed' : ''
           }`}
         />
-
-        <input
+         <input
           name="file"
           type="file"
-          accept="image/*"
-          onChange={handleChange}
+          placeholder="Artwork Title"
           disabled={isSubmitting || !isLoggedIn}
-          className={`w-full py-2 px-4 rounded-lg border border-gray-300 text-gray-700 ${
+          className={`w-full py-3 px-4 rounded-lg border border-gray-300 ${
             !isLoggedIn ? 'bg-gray-100 cursor-not-allowed' : ''
           }`}
         />
