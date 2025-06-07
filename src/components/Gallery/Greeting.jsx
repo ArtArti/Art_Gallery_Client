@@ -25,15 +25,9 @@ export default function Greeting() {
   return (
     <div>
       <h1 className="font-mono text-4xl font-bold text-red-800">
-       {isLoggedIn ? <>
-           HELLO,<span className={`font-sans ${textColor}`}>{greeting}</span>
-            <span className={`font-sans ${nameColor}`}>{user.name}</span>
-       </>: <>
-           HELLO,<span className={`font-sans ${textColor}`}>{greeting}</span>
-       </>
-
-       }
-      
+       😊 HELLO, <span className={`font-sans ${textColor}`}>
+       {isLoggedIn ? (<>{user?.name}</>) : (<>{greeting}</>)}
+       </span>
       </h1>
     </div>
   );
