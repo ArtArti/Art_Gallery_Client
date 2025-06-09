@@ -114,7 +114,7 @@ export default function Navbar({ cart }) {
                   className="flex items-center space-x-1 border border-amber-600 rounded-md px-2 py-1"
                 >
                   <User size={18} className="text-amber-600" />
-                  <span className="text-sm text-amber-600">Profile</span>
+                  <span id="profile" className="text-sm text-amber-600">Profile</span>
                 </Link>
               </>
             )}
