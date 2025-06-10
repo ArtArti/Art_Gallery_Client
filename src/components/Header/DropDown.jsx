@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../AuthContect/AuthContext";
-import { MoreVertical } from "lucide-react"; // Optional icon package
+import { MoreVertical } from "lucide-react";
 
 export default function DropdownMenu() {
   const [open, setOpen] = useState(false);
@@ -16,12 +16,13 @@ export default function DropdownMenu() {
   };
 
   const handleNavigate = (path) => {
-    setOpen(false); // close menu
+    setOpen(false);
     navigate(path);
   };
 
   return (
-    <div className="relative inline-block text-left">
+    <div className="relative z-50">
+      {/* 3-dot toggle button */}
       <button
         onClick={() => setOpen(!open)}
         className="p-2 rounded-full hover:bg-gray-200 focus:outline-none"
@@ -32,7 +33,7 @@ export default function DropdownMenu() {
 
       {/* Dropdown menu */}
       {open && (
-        <div className="absolute right-0 mt-2 w-44 bg-white border border-gray-200 rounded-md shadow-lg z-50">
+        <div className="absolute right-0 mt-2 w-44 bg-white border border-gray-300 rounded-md shadow-lg z-[9999]">
           <ul className="py-1 text-sm text-gray-700">
             <li>
               <button
