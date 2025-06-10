@@ -2,6 +2,7 @@ import { MenuIcon, ShoppingCart, User, X } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../AuthContect/AuthContext";
+// import DropDown from "./DropDown";
 export default function Navbar({ cart }) {
   const { user, isLoggedIn, setUser, setIsLoggedIn } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -91,6 +92,7 @@ export default function Navbar({ cart }) {
                 </span>
               )}
             </Link>
+            {/* <DropDown/> */}
 
             {isLoggedIn ? (
               <>

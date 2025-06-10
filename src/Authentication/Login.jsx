@@ -10,6 +10,7 @@ const Login = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
+  const API = import.meta.env.VITE_API_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,7 +31,7 @@ const Login = () => {
     }
 
     try {
-      const response = await fetch("https://blog-server-nu-weld.vercel.app/api/auth/signin", {
+      const response = await fetch(`${API}/api/auth/signin`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(loginData),
@@ -59,6 +60,8 @@ const Login = () => {
       setLoading(false);
     }
   };
+
+ 
 
   return (
     <> 
@@ -162,7 +165,7 @@ const Login = () => {
         </button>
         <div className="text-sm font-medium text-gray-500 text-center">
           Not registered?
-          <button className="text-blue-700 hover:underline cursor-pointer">
+          <button button  className="text-blue-700 hover:underline cursor-pointer">
             Create account
           </button>
         </div>

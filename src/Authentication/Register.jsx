@@ -4,7 +4,7 @@ function Register() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-
+  const API = import.meta.env.VITE_API_URL;
   const [userData, setUserData] = useState({
     name: "",
     email: "",
@@ -34,7 +34,7 @@ function Register() {
 
     try {
       // Make API call to register endpoint
-      const response = await fetch('https://blog-server-nu-weld.vercel.app/api/auth/signup', {
+      const response = await fetch(`${API}/api/auth/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

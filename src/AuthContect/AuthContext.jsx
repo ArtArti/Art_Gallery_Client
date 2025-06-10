@@ -6,12 +6,13 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+   const API = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) return;
 
-    fetch("https://blog-server-nu-weld.vercel.app/api/auth/check", {
+    fetch(`${API}/api/auth/check`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())

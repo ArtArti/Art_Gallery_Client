@@ -12,7 +12,7 @@ const { setUser, setIsLoggedIn } = useOutletContext();
   return (
     <div className="min-h-screen bg-amber-100 flex flex-col items-center justify-center px-4 space-y-6">
       {/* Swap Button */}
-      <button
+      <button 
         onClick={() => setIsLogin(!isLogin)}
         className="w-80 mt-4 bg-amber-500 hover:bg-amber-600 text-white py-2 px-4 rounded-lg text-sm font-semibold transition"
       >
