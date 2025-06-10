@@ -2,17 +2,19 @@ import { MenuIcon, ShoppingCart, User, X } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../AuthContect/AuthContext";
-// import DropDown from "./DropDown";
+import DropDown from "./DropDown";
+
 export default function Navbar({ cart }) {
-  const { user, isLoggedIn, setUser, setIsLoggedIn } = useAuth();
+  // const { user, isLoggedIn, setUser, setIsLoggedIn } = useAuth();
+  const {isLoggedIn} = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    setIsLoggedIn(false);
-    setUser(null);
-  };
+  // const handleLogout = () => {
+  //   localStorage.removeItem("token");
+  //   setIsLoggedIn(false);
+  //   setUser(null);
+  // };
 
   const navItems = [
     { to: "/", label: "Gallery" },
@@ -92,11 +94,11 @@ export default function Navbar({ cart }) {
                 </span>
               )}
             </Link>
-            {/* <DropDown/> */}
+           
 
             {isLoggedIn ? (
               <>
-                <div className="flex items-center space-x-4">
+                {/* <div className="flex items-center space-x-4">
                   <div className="flex items-center space-x-2">
                     <User className="h-5 w-5 text-gray-500" />
                     <span className="text-sm text-gray-700">{user?.name}</span>
@@ -107,7 +109,8 @@ export default function Navbar({ cart }) {
                   >
                     Logout
                   </button>
-                </div>
+                </div> */}
+                <DropDown/>
               </>
             ) : (
               <>
