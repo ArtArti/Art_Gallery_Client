@@ -18,7 +18,7 @@ export default function Navbar({ cart }) {
   ];
 
   return (
-    <header className="bg-white shadow-sm border-b sticky top-0 z-50 w-full overflow-x-hidden">
+    <header className=" bg-white shadow-sm border-b sticky top-0 z-50 w-full overflow-x-hidden">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo and desktop nav */}
@@ -89,7 +89,6 @@ export default function Navbar({ cart }) {
               )}
 
             </Link>
-            
             {isLoggedIn ? (
               <>
                 {/* <div className="flex items-center space-x-4">
