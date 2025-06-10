@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, LogOut, Mail, Lock } from "lucide-react";
 import { useAuth } from "../../AuthContect/AuthContext";
 
@@ -54,16 +53,8 @@ export default function DropDown() {
   };
 
   const menuItems = [
-    {
-      label: "Change Password",
-      icon: <Lock size={16} />,
-      path: "#change-password",
-    },
-    {
-      label: "Contact",
-      icon: <Mail size={16} />,
-      path: "/contact",
-    },
+    { label: "Change Password", icon: <Lock size={16} />, path: "#change-password" },
+    { label: "Contact", icon: <Mail size={16} />, path: "/contact" },
   ];
 
   return (
@@ -80,48 +71,42 @@ export default function DropDown() {
           alt="User Avatar"
           className="inline-block size-8 rounded-full ring-2 ring-white"
         />
+        <ChevronDown className="ml-1 mt-1 text-gray-600" />
       </button>
 
-      {typeof window !== "undefined" &&
+      {typeof window !== "undefined" && open &&
         createPortal(
-          <AnimatePresence>
-            {open && (
-              <motion.div
-                data-testid="avatar-menu"
-                ref={dropdownRef}
-                initial={{ opacity: 0, scale: 0.95, y: -5 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95, y: -5 }}
-                transition={{ duration: 0.2 }}
-                className="w-48 bg-white border border-gray-200 rounded-md shadow-lg absolute top-14 right-20 z-999"
-                id="AvatarMenu"
-                role="menu"
-              >
-                <ul className="py-1 text-sm text-gray-700">
-                  {menuItems.map((item, index) => (
-                    <li key={index}>
-                      <button
-                        onClick={() => handleSelect(item.path)}
-                        className="flex items-center gap-2 w-full px-4 py-2 hover:bg-gray-100"
-                      >
-                        {item.icon}
-                        {item.label}
-                      </button>
-                    </li>
-                  ))}
-                  <li>
-                    <button
-                      onClick={handleLogout}
-                      className="flex items-center gap-2 w-full px-4 py-2 text-red-600 hover:bg-gray-100"
-                    >
-                      <LogOut size={16} />
-                      Log Out
-                    </button>
-                  </li>
-                </ul>
-              </motion.div>
-            )}
-          </AnimatePresence>,
+          <div
+            data-testid="avatar-menu"
+            ref={dropdownRef}
+            className="w-48 bg-white border border-gray-200 rounded-md shadow-lg absolute z-50"
+            style={{ top: position.top, left: position.left }}
+            id="AvatarMenu"
+            role="menu"
+          >
+            <ul className="py-1 text-sm text-gray-700">
+              {menuItems.map((item, index) => (
+                <li key={index}>
+                  <button
+                    onClick={() => handleSelect(item.path)}
+                    className="flex items-center gap-2 w-full px-4 py-2 hover:bg-gray-100"
+                  >
+                    {item.icon}
+                    {item.label}
+                  </button>
+                </li>
+              ))}
+              <li>
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center gap-2 w-full px-4 py-2 text-red-600 hover:bg-gray-100"
+                >
+                  <LogOut size={16} />
+                  Log Out
+                </button>
+              </li>
+            </ul>
+          </div>,
           document.body
         )}
     </>
