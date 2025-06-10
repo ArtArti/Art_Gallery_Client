@@ -93,6 +93,7 @@ export default function DropDown() {
                 exit={{ opacity: 0, scale: 0.95, y: -5 }}
                 transition={{ duration: 0.2 }}
                 className="w-48 bg-white border border-gray-200 rounded-md shadow-lg absolute top-14 right-20 z-999"
+                id="AvatarMenu"
                 role="menu"
               >
                 <ul className="py-1 text-sm text-gray-700">
