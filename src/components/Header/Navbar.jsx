@@ -10,12 +10,6 @@ export default function Navbar({ cart }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
 
-  // const handleLogout = () => {
-  //   localStorage.removeItem("token");
-  //   setIsLoggedIn(false);
-  //   setUser(null);
-  // };
-
   const navItems = [
     { to: "/", label: "Gallery" },
     { to: "/about", label: "About" },
@@ -93,9 +87,9 @@ export default function Navbar({ cart }) {
                   {cart.length}
                 </span>
               )}
-            </Link>
-           
 
+            </Link>
+            
             {isLoggedIn ? (
               <>
                 {/* <div className="flex items-center space-x-4">

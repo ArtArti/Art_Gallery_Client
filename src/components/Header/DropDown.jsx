@@ -1,67 +1,117 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronDown, LogOut, Mail, Lock } from "lucide-react";
 import { useAuth } from "../../AuthContect/AuthContext";
-import { MoreVertical } from "lucide-react";
 
-export default function DropdownMenu() {
+export default function DropDown() {
   const [open, setOpen] = useState(false);
+  const [position, setPosition] = useState({ top: 0, left: 0 });
+  const buttonRef = useRef(null);
   const navigate = useNavigate();
   const { setUser, setIsLoggedIn } = useAuth();
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    setIsLoggedIn(false);
-    setUser(null);
-    navigate("/");
+  // Toggle dropdown
+  const toggleDropdown = () => {
+    if (!open && buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect();
+      setPosition({
+        top: rect.bottom + window.scrollY + 8,
+        left: rect.left + window.scrollX - 100,
+      });
+    }
+    setOpen(!open);
   };
 
-  const handleNavigate = (path) => {
+  // Close on outside click
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (open && buttonRef.current && !buttonRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [open]);
+
+  const handleSelect = (action) => {
     setOpen(false);
-    navigate(path);
+    if (action === "logout") {
+      localStorage.removeItem("token");
+      setIsLoggedIn(false);
+      setUser(null);
+      navigate("/");
+    } else {
+      navigate(action);
+    }
   };
 
   return (
-    <div className="relative z-50">
-      {/* 3-dot toggle button */}
+    <>
       <button
-        onClick={() => setOpen(!open)}
-        className="p-2 rounded-full hover:bg-gray-200 focus:outline-none"
-        aria-label="More options"
+        ref={buttonRef}
+        onClick={toggleDropdown}
+        className="flex -space-x-2 overflow-hidden"
       >
-        <MoreVertical className="w-5 h-5" />
+        <img
+          src="https://www.w3schools.com/howto/img_avatar.png"
+          alt="Default Avatar"
+          className="inline-block size-8 rounded-full ring-2 ring-white"
+        />
       </button>
 
-      {/* Dropdown menu */}
-      {open && (
-        <div className="absolute right-0 mt-2 w-44 bg-white border border-gray-300 rounded-md shadow-lg z-[9999]">
-          <ul className="py-1 text-sm text-gray-700">
-            <li>
-              <button
-                onClick={() => handleNavigate("#change-password")}
-                className="w-full text-left px-4 py-2 hover:bg-gray-100"
+      {/* Portal Dropdown */}
+      {typeof window !== "undefined" &&
+        createPortal(
+          <AnimatePresence>
+            {open && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: -5 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: -5 }}
+                transition={{ duration: 0.2 }}
+                className="absolute z-[9999] w-48 bg-white rounded-md shadow-lg border border-gray-200"
+                style={{
+                  top: position.top,
+                  left: position.left,
+                  position: "absolute",
+                }}
               >
-                Change Password
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => handleNavigate("/contact")}
-                className="w-full text-left px-4 py-2 hover:bg-gray-100"
-              >
-                Contact
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={handleLogout}
-                className="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100"
-              >
-                Log Out
-              </button>
-            </li>
-          </ul>
-        </div>
-      )}
-    </div>
+                <ul className="py-1 text-sm text-gray-700">
+                  <li>
+                    <button
+                      onClick={() => handleSelect("#change-password")}
+                      className="flex items-center gap-2 w-full px-4 py-2 hover:bg-gray-100"
+                    >
+                      <Lock size={16} />
+                      Change Password
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      onClick={() => handleSelect("/contact")}
+                      className="flex items-center gap-2 w-full px-4 py-2 hover:bg-gray-100"
+                    >
+                      <Mail size={16} />
+                      Contact
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      onClick={() => handleSelect("logout")}
+                      className="flex items-center gap-2 w-full px-4 py-2 text-red-600 hover:bg-gray-100"
+                    >
+                      <LogOut size={16} />
+                      Log Out
+                    </button>
+                  </li>
+                </ul>
+              </motion.div>
+            )}
+          </AnimatePresence>,
+          document.body
+        )}
+    </>
   );
 }
