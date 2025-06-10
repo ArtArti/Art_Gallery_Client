@@ -71,7 +71,6 @@ export default function DropDown() {
           alt="User Avatar"
           className="inline-block size-8 rounded-full ring-2 ring-white"
         />
-        <ChevronDown className="ml-1 mt-1 text-gray-600" />
       </button>
 
       {typeof window !== "undefined" && open &&
