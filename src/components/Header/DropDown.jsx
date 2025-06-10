@@ -16,6 +16,7 @@ export default function DropDown() {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
     setUser(null);
+      navigate("/");
   };
 
 
