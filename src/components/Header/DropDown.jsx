@@ -35,17 +35,18 @@ export default function DropDown() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [open]);
 
-  const handleSelect = (action) => {
-    setOpen(false);
-    if (action === "logout") {
-      localStorage.removeItem("token");
-      setIsLoggedIn(false);
-      setUser(null);
-      navigate("/");
-    } else {
-      navigate(action);
-    }
-  };
+ const handleSelect = (action) => {
+  setOpen(false);
+  if (action === 'logout') {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    setUser(null);
+    navigate("/"); 
+  } else if (typeof action === 'string') {
+    navigate(action);
+  }
+};
+
 
   return (
     <>
