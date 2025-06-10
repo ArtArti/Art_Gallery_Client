@@ -1,32 +1,66 @@
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../AuthContect/AuthContext';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../AuthContect/AuthContext";
+import { MoreVertical } from "lucide-react"; // Optional icon package
 
-export default function DropDown() {
+export default function DropdownMenu() {
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const { setUser, setIsLoggedIn } = useAuth();
 
-  const handleChange = (e) => {
-    const path = e.target.value;
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    setUser(null);
+    navigate("/");
+  };
 
-    if (path === 'logout') {
-      localStorage.removeItem("token");
-      setIsLoggedIn(false);
-      setUser(null);
-      navigate("/");
-    } else if (path) {
-      navigate(path);
-    }
+  const handleNavigate = (path) => {
+    setOpen(false); // close menu
+    navigate(path);
   };
 
   return (
-    <select
-      onChange={handleChange}
-      className="items-center space-x-1 border border-amber-600 rounded-md px-1 py-1"
-    >
-      <option value="">Select</option>
-      <option value="/change-password">Change Password</option>
-      <option value="/contact">Contact</option>
-      <option value="logout" className="text-red-600">Log Out</option>
-    </select>
+    <div className="relative inline-block text-left">
+      <button
+        onClick={() => setOpen(!open)}
+        className="p-2 rounded-full hover:bg-gray-200 focus:outline-none"
+        aria-label="More options"
+      >
+        <MoreVertical className="w-5 h-5" />
+      </button>
+
+      {/* Dropdown menu */}
+      {open && (
+        <div className="absolute right-0 mt-2 w-44 bg-white border border-gray-200 rounded-md shadow-lg z-50">
+          <ul className="py-1 text-sm text-gray-700">
+            <li>
+              <button
+                onClick={() => handleNavigate("#change-password")}
+                className="w-full text-left px-4 py-2 hover:bg-gray-100"
+              >
+                Change Password
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={() => handleNavigate("/contact")}
+                className="w-full text-left px-4 py-2 hover:bg-gray-100"
+              >
+                Contact
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={handleLogout}
+                className="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100"
+              >
+                Log Out
+              </button>
+            </li>
+          </ul>
+        </div>
+      )}
+    </div>
   );
 }

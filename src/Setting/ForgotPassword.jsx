@@ -72,7 +72,7 @@ function ForgotPassword() {
         throw new Error("Reset token not found. Please request a new password reset.");
       }
 
-      const response = await fetch('/api/auth/reset-password', {
+      const response = await fetch(`/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
