@@ -79,8 +79,7 @@ export default function DropDown() {
           <div
             data-testid="avatar-menu"
             ref={dropdownRef}
-            className="w-48 bg-white border border-gray-200 rounded-md shadow-lg absolute z-50"
-            style={{ top: position.top, left: position.left }}
+            className="w-48 bg-white border border-gray-200 rounded-md shadow-lg absolute z-999 right-20 top-14"
             id="AvatarMenu"
             role="menu"
           >
