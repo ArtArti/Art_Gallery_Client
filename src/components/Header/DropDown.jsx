@@ -87,6 +87,7 @@ export default function DropDown() {
           <AnimatePresence>
             {open && (
               <motion.div
+                data-testid="avatar-menu"
                 ref={dropdownRef}
                 initial={{ opacity: 0, scale: 0.95, y: -5 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
