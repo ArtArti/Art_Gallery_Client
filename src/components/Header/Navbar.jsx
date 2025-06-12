@@ -91,18 +91,6 @@ export default function Navbar({ cart }) {
             </Link>
             {isLoggedIn ? (
               <>
-                {/* <div className="flex items-center space-x-4">
-                  <div className="flex items-center space-x-2">
-                    <User className="h-5 w-5 text-gray-500" />
-                    <span className="text-sm text-gray-700">{user?.name}</span>
-                  </div>
-                  <button
-                    onClick={handleLogout}
-                    className="text-sm text-red-600 hover:text-red-800 font-medium"
-                  >
-                    Logout
-                  </button>
-                </div> */}
                 <DropDown/>
               </>
             ) : (
