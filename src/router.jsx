@@ -6,7 +6,7 @@ import ArtGalleryWrapper from "./components/Gallery/ArtGalleryWrapper";
 import About from "./components/About/About";
 import Contact from "./components/Contact/Contact";
 import AuthForm from "./Authentication/AuthForm";
-// import ForgotPassword from './Profile/ForgotPassword'
+import ForgotPassword from './Profile/ForgotPassword'
 
 const router = createBrowserRouter([
   {
