@@ -53,7 +53,7 @@ export default function DropDown() {
   };
 
   const menuItems = [
-    { label: "Change Password", icon: <Lock size={16} />, path: "#change-password" },
+    { label: "Change Password", icon: <Lock size={16} />, path: "/changepassword" },
     { label: "Contact", icon: <Mail size={16} />, path: "/contact" },
   ];
 

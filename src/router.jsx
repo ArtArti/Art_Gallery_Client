@@ -38,10 +38,10 @@ const router = createBrowserRouter([
         path: "/auth",
         element: <AuthForm/>,
       },
-      // {
-      //   path: "/forgotpass",
-      //   element: <ForgotPassword/>,
-      // },
+      {
+        path: "/changepassword",
+        element: <ForgotPassword/>,
+      },
     ],
   },
 ]);
